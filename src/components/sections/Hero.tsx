@@ -147,7 +147,7 @@ export function Hero() {
           {floatingDevices.map((dev, idx) => {
             // Distribute items in a circle around the center
             const angles = [0, 72, 144, 216, 288];
-            const radius = 135; // px radial offset
+            const radius = 185; // Increased px radial offset to float on the sides of the logo
             const angleRad = (angles[idx] * Math.PI) / 180;
             const x = Math.round(Math.cos(angleRad) * radius);
             const y = Math.round(Math.sin(angleRad) * radius);
