@@ -1,12 +1,16 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { Gamepad2, Headphones, Keyboard, Mouse, Glasses, Play, Shield, Zap } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 
 export function Hero() {
+  const { scrollY } = useScroll();
+  const rotationAngle = useTransform(scrollY, [0, 800], [0, 360]);
+  const counterRotation = useTransform(scrollY, [0, 800], [0, -360]);
+
   const floatingDevices = [
     { icon: <Gamepad2 size={28} />, name: "PS5 DualSense", color: "text-[#00E5FF] border-[#00E5FF]/30", animation: "animate-float" },
     { icon: <Headphones size={28} />, name: "Pro Headset", color: "text-[#FF003C] border-[#FF003C]/30", animation: "animate-float-delayed" },
@@ -143,53 +147,64 @@ export function Hero() {
             </div>
           </motion.div>
 
-          {/* Floating Hardware components */}
-          {floatingDevices.map((dev, idx) => {
-            // Distribute items in a circle around the center
-            const angles = [0, 72, 144, 216, 288];
-            const radius = 175; // px radial offset from the logo edge
-            const angleRad = (angles[idx] * Math.PI) / 180;
-            const x = Math.round(Math.cos(angleRad) * radius);
-            const y = Math.round(Math.sin(angleRad) * radius);
+          {/* Floating Hardware components container that rotates on scroll */}
+          <motion.div
+            style={{ rotate: rotationAngle }}
+            className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none"
+          >
+            {floatingDevices.map((dev, idx) => {
+              // Distribute items in a circle around the center
+              const angles = [0, 72, 144, 216, 288];
+              const radius = 175; // px radial offset from the logo edge
+              const angleRad = (angles[idx] * Math.PI) / 180;
+              const x = Math.round(Math.cos(angleRad) * radius);
+              const y = Math.round(Math.sin(angleRad) * radius);
 
-            return (
-              <motion.div
-                key={dev.name}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.3 + idx * 0.1 }}
-                className="absolute z-20 pointer-events-none"
-                style={{
-                  left: `calc(50% + ${x}px)`,
-                  top: `calc(50% + ${y}px)`,
-                  transform: "translate(-50%, -50%)",
-                }}
-              >
-                {/* Inner child handles the floating loop to avoid overriding coordinates */}
+              return (
                 <motion.div
-                  animate={{
-                    y: [0, -10, 0],
-                    rotate: [0, idx % 2 === 0 ? 2 : -2, 0],
-                  }}
-                  transition={{
-                    duration: idx % 2 === 0 ? 5 : 7,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                  className={`p-4 rounded-2xl bg-[#111111]/90 backdrop-blur-md border border-white/10 flex flex-col items-center justify-center shadow-[0_10px_30px_rgba(0,0,0,0.5)] ${dev.color} pointer-events-auto`}
+                  key={dev.name}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.3 + idx * 0.1 }}
+                  className="absolute pointer-events-none"
                   style={{
-                    width: "76px",
-                    height: "76px",
+                    left: `calc(50% + ${x}px)`,
+                    top: `calc(50% + ${y}px)`,
+                    transform: "translate(-50%, -50%)",
                   }}
                 >
-                  {dev.icon}
-                  <span className="text-[9px] font-bold text-white mt-1.5 whitespace-nowrap">
-                    {dev.name.split(" ")[1] || dev.name}
-                  </span>
+                  {/* Outer counter-rotator ensures text and icons stay upright as the ring rotates */}
+                  <motion.div
+                    style={{ rotate: counterRotation }}
+                    className="pointer-events-auto"
+                  >
+                    {/* Inner child handles the floating loop */}
+                    <motion.div
+                      animate={{
+                        y: [0, -10, 0],
+                        rotate: [0, idx % 2 === 0 ? 2 : -2, 0],
+                      }}
+                      transition={{
+                        duration: idx % 2 === 0 ? 5 : 7,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                      className={`p-4 rounded-2xl bg-[#111111]/90 backdrop-blur-md border border-white/10 flex flex-col items-center justify-center shadow-[0_10px_30px_rgba(0,0,0,0.5)] ${dev.color}`}
+                      style={{
+                        width: "76px",
+                        height: "76px",
+                      }}
+                    >
+                      {dev.icon}
+                      <span className="text-[9px] font-bold text-white mt-1.5 whitespace-nowrap">
+                        {dev.name.split(" ")[1] || dev.name}
+                      </span>
+                    </motion.div>
+                  </motion.div>
                 </motion.div>
-              </motion.div>
-            );
-          })}
+              );
+            })}
+          </motion.div>
         </div>
       </div>
     </section>
