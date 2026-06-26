@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <!-- Circular background badge -->
+  <circle cx="250" cy="250" r="240" fill="#050505" />
+
+  <!-- Controller outline in white -->
+  <path 
+    d="M 160 170 C 205 170, 220 185, 250 185 C 280 185, 295 170, 340 170 C 390 170, 410 200, 410 240 C 410 295, 360 330, 330 330 C 310 330, 300 312, 250 312 C 200 312, 190 330, 170 330 C 140 330, 90 295, 90 240 C 90 200, 110 170, 160 170 Z" 
+    fill="none" 
+    stroke="#ffffff" 
+    stroke-width="5.5" 
+    stroke-linejoin="round"
+  />
+
+  <!-- D-Pad (Left side) in white -->
+  <path 
+    d="M 135 230 C 135 228, 137 226, 140 226 H 146 V 220 C 146 217, 148 215, 151 215 C 154 215, 156 217, 156 220 V 226 H 162 C 165 226, 167 228, 167 231 C 167 234, 165 236, 162 236 H 156 V 242 C 156 245, 154 247, 151 247 C 148 247, 146 245, 146 242 V 236 H 140 C 137 236, 135 234, 135 231 Z" 
+    fill="#ffffff" 
+  />
+  <!-- Inner Dpad circle detail -->
+  <circle cx="151" cy="231" r="3.5" fill="#050505" />
+
+  <!-- PlayStation Action Buttons (Right side) in red -->
+  <!-- Triangle -->
+  <polygon points="351,211 356,220 346,220" fill="none" stroke="#FF003C" stroke-width="2.5" stroke-linejoin="round"/>
+  <!-- Circle -->
+  <circle cx="363" cy="231" r="5" fill="none" stroke="#FF003C" stroke-width="2.5"/>
+  <!-- Cross -->
+  <path d="M 347,243 L 355,251 M 355,243 L 347,251" stroke="#FF003C" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Square -->
+  <rect x="333" y="226" width="9" height="9" rx="1" fill="none" stroke="#FF003C" stroke-width="2.5"/>
+
+  <!-- Stylized Overlapping AG (Center) -->
+  <!-- A (Red) -->
+  <path 
+    d="M 205 272 L 225 224 C 226 222, 228 221, 230 221 C 232 221, 234 222, 235 224 L 255 272 H 244 L 230 238 L 216 272 Z M 219 257 H 241 L 238 249 H 222 Z" 
+    fill="#FF003C" 
+  />
+  
+  <!-- G (White) -->
+  <path 
+    d="M 288 224 H 264 C 255 224, 250 230, 250 238 L 250 258 C 250 266, 255 272, 264 272 H 288 V 246 H 272 V 254 H 278 V 262 H 264 C 260 262, 259 258, 259 255 L 259 241 C 259 238, 260 234, 264 234 H 288 Z" 
+    fill="#ffffff" 
+  />
+
+  <!-- ANYTIME text -->
+  <!-- "ANY" in white -->
+  <text 
+    x="226" 
+    y="386" 
+    font-family="'Space Grotesk', 'Inter', system-ui, -apple-system, sans-serif" 
+    font-weight="900" 
+    font-size="48" 
+    fill="#ffffff" 
+    text-anchor="end" 
+    letter-spacing="1"
+  >ANY</text>
+
+  <!-- Stylized "T" in red (with long stem extending downwards) -->
+  <path 
+    d="M 230,346 H 270 V 356 H 255 V 400 H 245 V 356 H 230 Z" 
+    fill="#FF003C" 
+  />
+
+  <!-- "IME" in white -->
+  <text 
+    x="274" 
+    y="386" 
+    font-family="'Space Grotesk', 'Inter', system-ui, -apple-system, sans-serif" 
+    font-weight="900" 
+    font-size="48" 
+    fill="#ffffff" 
+    text-anchor="start" 
+    letter-spacing="1"
+  >IME</text>
+
+  <!-- — G A M I N G — in spaced red text -->
+  <text 
+    x="250" 
+    y="432" 
+    font-family="'Space Grotesk', 'Inter', system-ui, -apple-system, sans-serif" 
+    font-weight="700" 
+    font-size="21" 
+    fill="#FF003C" 
+    text-anchor="middle" 
+    letter-spacing="11"
+  >— GAMING —</text>
+</svg>
