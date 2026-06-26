@@ -147,7 +147,7 @@ export function Hero() {
           {floatingDevices.map((dev, idx) => {
             // Distribute items in a circle around the center
             const angles = [0, 72, 144, 216, 288];
-            const radius = 185; // Increased px radial offset to float on the sides of the logo
+            const radius = 175; // px radial offset from the logo edge
             const angleRad = (angles[idx] * Math.PI) / 180;
             const x = Math.round(Math.cos(angleRad) * radius);
             const y = Math.round(Math.sin(angleRad) * radius);
@@ -155,17 +155,38 @@ export function Hero() {
             return (
               <motion.div
                 key={dev.name}
-                initial={{ opacity: 0, x: 0, y: 0 }}
-                animate={{ opacity: 1, x, y }}
-                transition={{ type: "spring", stiffness: 60, delay: 0.3 + idx * 0.1 }}
-                className={`absolute p-4 rounded-2xl bg-[#111111]/90 backdrop-blur-md border border-white/10 flex flex-col items-center justify-center shadow-[0_10px_30px_rgba(0,0,0,0.5)] ${dev.color} ${dev.animation}`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.3 + idx * 0.1 }}
+                className="absolute z-20 pointer-events-none"
                 style={{
-                  width: "76px",
-                  height: "76px",
+                  left: `calc(50% + ${x}px)`,
+                  top: `calc(50% + ${y}px)`,
+                  transform: "translate(-50%, -50%)",
                 }}
               >
-                {dev.icon}
-                <span className="text-[9px] font-bold text-white mt-1.5 whitespace-nowrap">{dev.name.split(" ")[1] || dev.name}</span>
+                {/* Inner child handles the floating loop to avoid overriding coordinates */}
+                <motion.div
+                  animate={{
+                    y: [0, -10, 0],
+                    rotate: [0, idx % 2 === 0 ? 2 : -2, 0],
+                  }}
+                  transition={{
+                    duration: idx % 2 === 0 ? 5 : 7,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  className={`p-4 rounded-2xl bg-[#111111]/90 backdrop-blur-md border border-white/10 flex flex-col items-center justify-center shadow-[0_10px_30px_rgba(0,0,0,0.5)] ${dev.color} pointer-events-auto`}
+                  style={{
+                    width: "76px",
+                    height: "76px",
+                  }}
+                >
+                  {dev.icon}
+                  <span className="text-[9px] font-bold text-white mt-1.5 whitespace-nowrap">
+                    {dev.name.split(" ")[1] || dev.name}
+                  </span>
+                </motion.div>
               </motion.div>
             );
           })}
